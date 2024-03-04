@@ -116,5 +116,8 @@ plt.minorticks_on()
 plt.xlabel(r"$T \quad (ns)$")
 plt.ylabel(r"$\frac{|y_{pred}-y|}{y}$")
 
+plt.ylim((0,0.2))
+plt.xlim((10,80))
+
 plt.plot(resDict.keys(),resDict.values(),'r.')
 plt.savefig(f"shapT{shapingT}{gain}.png", bbox_inches="tight", dpi=300)

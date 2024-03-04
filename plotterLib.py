@@ -655,7 +655,7 @@ def plotData(name,citDict,meansDict,plotType,cits,gains,channels,**kwargs):
             p += kwargs['indipVar']
 
         xlim[p],ylim[p] = selectLim(p,nEvt,autoLim,**kwargs)
-
+        
     dataDir = os.getcwd()
     for c in cits:
         if not os.path.exists(c):

@@ -12,7 +12,7 @@ from os.path import isfile
 import numpy as np
 import citSupportLib as csl
 
-analysisPromptPattern = "(\d)\s*:\s*([\w,-:\\\\]+)"
+analysisPromptPattern = "(\d\d?)\s*:\s*([\w,-:\\\\]+)"
 apRegex = re.compile(analysisPromptPattern)
 
 rangePattern = f"{pltr.numericPattern}-?{pltr.numericPattern}?"
