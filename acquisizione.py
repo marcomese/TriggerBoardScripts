@@ -51,12 +51,12 @@ def main():
     pulseTrigCh = 1
     pulseAcqCh = 2
 
-    trigAmpl = 100e-3
+    trigAmpl = 3000e-3
     trigWidth = 10e-9
     
     usePulseGen = True
     
-    triggerMask = "0000 0002"
+    triggerMask = "0400 0000"
     genericTriggerMask = "0000 0000"
     
     cit0PMTMask = "FFFF FFFF"
@@ -189,7 +189,7 @@ def main():
     print("imposto il fast shaper su HG")
     
     tb.gains = {
-        'ch00': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch00': {'hg': 20.0, 'lg': 2.0, 'inCalib': 'hg', 'enabled': True},
         'ch01': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
         'ch02': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
         'ch03': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},

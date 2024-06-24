@@ -82,7 +82,8 @@ class pulseGenerator(object):
         offsetCMD = f"SOURCE{ch}:VOLT:OFFSET {offVal}"
         vunitCMD = f"SOURCE{ch}:VOLT:UNIT VPP"
         amplVal = float(highVampl)
-        vocmCMD = f"SOURCE{ch}:VOLT:VOCM {vocm*amplVal}"
+        #vocmCMD = f"SOURCE{ch}:VOLT:VOCM {vocm*amplVal}"
+        vocmCMD = f"SOURCE{ch}:VOLT:BASELINE:OFFSET {vocm*amplVal}"
         burstCyclesCMD = f"SOURCE{ch}:BURST:NCYCLES {burstCycles}"
         burstCMD = f"SOURCE{ch}:BURST:STATE {burstState[burst]}"
         phaseCMD = f"SOURCE{ch}:PHASE {getPhase(freq,phase[ch-1]*1e-9)}DEG"

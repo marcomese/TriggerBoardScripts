@@ -122,7 +122,7 @@ tb.pedestals = {'cit0': {'hg': dacPedestalCIT0[:4],
 
 print("Piedistalli configurati")
 
-fileName = f"testAllChSN05_{channel}"
+fileName = f"NEWtestAllChSN05_{channel}"
 
 tb.slowCtrl.flushRegisters(feedback=feedback)
 tb.startAcq()
