@@ -16,7 +16,7 @@ import oscLib as ol
 from regNameRegs import regNameRegs as tbRegs
 import alimLib as alim
 
-def main():
+def main(channel):
     ########################### PARAMETRI #########################################
     
     alimAddr = 'USB0::0x0957::0x0F07::MY53004295::0::INSTR'
@@ -26,9 +26,43 @@ def main():
     dpcuEmulatorAddr = '172.16.1.2'
     
     acqCit = ["cit0"]#,"cit1"]
-    acqCh = ["ch00"]#f"ch{d:02d}" for d in range(32)]#,"ch01","ch02","ch03","ch06","ch07","ch08"]#,"ch01","ch02"]
-    inCalibCH = {}# {"ch00":'hg'}
-     
+    acqCh = [channel]#["ch00"]#f"ch{d:02d}" for d in range(32)]#,"ch01","ch02","ch03","ch06","ch07","ch08"]#,"ch01","ch02"]
+
+    citConf = {
+        'ch00': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch01': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch02': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch03': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch04': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch05': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch06': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch07': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch08': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch09': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch10': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch11': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch12': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch13': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch14': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch15': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch16': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch17': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch18': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch19': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch20': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch21': {'hg': 10.0, 'lg': 1.5, 'inCalib': None, 'enabled': True},
+        'ch22': {'hg': 10.0, 'lg': 1.5, 'inCalib': None, 'enabled': True},
+        'ch23': {'hg': 10.0, 'lg': 1.5, 'inCalib': None, 'enabled': True},
+        'ch24': {'hg': 10.0, 'lg': 1.5, 'inCalib': None, 'enabled': True},
+        'ch25': {'hg': 10.0, 'lg': 1.5, 'inCalib': None, 'enabled': True},
+        'ch26': {'hg': 10.0, 'lg': 1.5, 'inCalib': None, 'enabled': True},
+        'ch27': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch28': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch29': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch30': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+        'ch31': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
+    }
+    
     dacVal = 210
     
     impFrequency = 20
@@ -52,7 +86,7 @@ def main():
     pulseAcqCh = 2
 
     trigAmpl = 3000e-3
-    trigWidth = 10e-9
+    trigWidth = 30e-9
     
     usePulseGen = True
     
@@ -66,7 +100,7 @@ def main():
     
     expDecayFreq = 3e6
     
-    dataFrom ="debug"
+    dataFrom = "debug"
     
     powerDataLog = False
     pwrDataLogFileName = "pwrTest061023"
@@ -188,40 +222,7 @@ def main():
     
     print("imposto il fast shaper su HG")
     
-    tb.gains = {
-        'ch00': {'hg': 20.0, 'lg': 2.0, 'inCalib': 'hg', 'enabled': True},
-        'ch01': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch02': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch03': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch04': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch05': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch06': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch07': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch08': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch09': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch10': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch11': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch12': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch13': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch14': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch15': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch16': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch17': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch18': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch19': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch20': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch21': {'hg': 10.0, 'lg': 1.5, 'inCalib': None, 'enabled': True},
-        'ch22': {'hg': 10.0, 'lg': 1.5, 'inCalib': None, 'enabled': True},
-        'ch23': {'hg': 10.0, 'lg': 1.5, 'inCalib': None, 'enabled': True},
-        'ch24': {'hg': 10.0, 'lg': 1.5, 'inCalib': None, 'enabled': True},
-        'ch25': {'hg': 10.0, 'lg': 1.5, 'inCalib': None, 'enabled': True},
-        'ch26': {'hg': 10.0, 'lg': 1.5, 'inCalib': None, 'enabled': True},
-        'ch27': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch28': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch29': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch30': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-        'ch31': {'hg': 20.0, 'lg': 2.0, 'inCalib': None, 'enabled': True},
-    }
+    tb.gains = citConf
     
     tb.fastShaperOn = 'hg'
 
@@ -359,11 +360,10 @@ def main():
                 if pulseType == "square":
                     impSer.configurePulse(pulseTrigCh,trigAmpl,0,trigWidth,2e-9,2e-9,impFrequency,
                                           double=doublePulseCh2,vocm=vocm,phase=phase)
-                
-                    impSer.coupleToChannel1("frequency")
                     
                     if couplePhase is True:
                         impSer.coupleToChannel1("phase")
+                    
                 else:
                     impSer.configurePulse(pulseTrigCh,trigAmpl,0,trigWidth,2e-9,2e-9,impFrequency,
                                           double=doublePulseCh2,vocm=vocm,
@@ -377,13 +377,34 @@ def main():
     
                 timeFile.write(f"startPulse{i} = {stop-start}\n")
 
-            for acit in acqCit:
-                for ach in acqCh:
-                    print(f"Imposto preamp_config{acqCh} HG={paramList['hg'][i][0][0]}"
-                          f" LG={paramList['lg'][i][0][0]}")
-                    tb.gains = {ach:{'hg':paramList['hg'][i][0][0],
-                                     'lg':paramList['lg'][i][0][0],
-                                     'inCalib':inCalibCH[ach] if ach in inCalibCH.keys() else None}}
+            for ach in acqCh:
+                pInCalib = None
+
+                if 'hg' in paramList.keys() and paramList['hg'][i] is not None:
+                    hgConf = paramList['hg'][i][0][0]
+                    
+                    if pInCalib is None:
+                        pInCalib = 'hg' if paramList['hg'][i][0][1] == 't' else None
+                else:
+                    hgConf = citConf[ach]['hg']
+                    pInCalib = citConf[ach]['inCalib']
+                    paramList['hg'][i] = [[hgConf,'h']]
+
+                if 'lg' in paramList.keys() and paramList['lg'][i] is not None:
+                    lgConf = paramList['lg'][i][0][0]
+                    
+                    if pInCalib is None:
+                        pInCalib = 'lg' if paramList['lg'][i][0][1] == 'c' else None
+                else:
+                    lgConf = citConf[ach]['lg']
+                    pInCalib = citConf[ach]['inCalib']
+                    paramList['lg'][i] = [[lgConf,'l']]
+
+                print(f"Imposto preamp_config{acqCh} HG={hgConf}"
+                      f" LG={lgConf}")
+                tb.gains = {ach:{'hg':hgConf,
+                                 'lg':lgConf,
+                                 'inCalib':pInCalib}}
     
             # shapStr = ''
             # if 'a' in paramList.keys() and paramList['a'][0] is not None:
@@ -585,7 +606,10 @@ def main():
 
 if __name__ == '__main__':
     try:
-        main()
+        channels = ["ch00","ch01","ch02"]
+        
+        for c in channels:
+            main(c)
     except Exception as e:
         print(f"Errore: {e}")
         sys.exit(e)
